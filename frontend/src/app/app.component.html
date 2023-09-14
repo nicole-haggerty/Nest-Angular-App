@@ -1,0 +1,39 @@
+<h1>Angular/Nest Simple CRUD</h1>
+<button class="button-add-delete button-add" (click)="toggleModal('Create')">Create New Player</button>
+  <table id="customers">
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Position</th>
+      <th>Nationality</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let player of players">
+      <td><p>{{player?.name}}</p></td>
+      <td><p>{{player?.team}}</p></td>
+      <td><p>{{player?.position}}</p></td>
+      <td><p>{{player?.nationality}}</p></td>
+      <td class="actions">
+        <button class="button-add-delete" (click)="deletePlayer(player.id)">Delete Player</button>
+        <button class="button-edit" (click)="prepEdit(player)">Edit Player</button>
+      </td>
+    </tr>
+  </table>
+
+  <div *ngIf="modalShow" class="modal">
+    <form [formGroup]="form">
+    <div id="modal-1">
+        <h1>{{type}} player</h1>
+        <p>Name: </p> <input formControlName="name" type="text"/>
+        <p>Position: </p><input formControlName="position" type="text"/>
+        <p>Team: </p><input formControlName="team" type="text"/>
+        <p>Nationality: </p> <input formControlName="nationality" type="text"/>
+    </div>
+    <p *ngIf="invalidForm" class="error">Form invalid</p>
+    <div class="buttons-modal">
+      <button class="button-edit" (click)="type === 'Create' ? createPlayer() : updatePlayer()">{{type}} Player</button>
+      <button class="button-add-delete" (click)="toggleModal('')">Cancel</button>
+    </div>
+    </form>
+  </div>
+<router-outlet></router-outlet>
